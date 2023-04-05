@@ -1,16 +1,87 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Railsblog</title>
+    <title>Blogchain</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'rails-ujs' %>
   </head>
 
   <body>
-    <%= yield %>
+    <section class="Main is-primary is-medium">
+    <!-- Main head: will stick at the top -->
+    <div class="Main-head">
+      <nav class="navbar is-light">
+        <div class="container">
+
+        <div class="navbar-brand">
+            <%= link_to 'Blogchain', root_path, class: "navbar-item" %>
+            <span class="navbar-burger burger" data-target="navbarMenuMainA">
+
+            </span>
+        </div>
+
+          <div class="control has-icons-left">
+            <input class="input is-rounded" type="text" placeholder="Search Blogchain">
+            <span class="icon is-small is-left" >
+            <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+          </div>
+
+
+        <div id="navbarMenuMainA" class="navbar-menu">
+          <div class="navbar-end">
+            <%= link_to "Write +", new_post_path, class:"navbar-item" %>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Menu
+              </a>
+
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  Profile
+                </a>
+                <a class="navbar-item">
+                  Stories
+                </a>
+                <a class="navbar-item">
+                  Liabrary
+                </a>
+                <a class="navbar-item">
+                  Stats
+                </a>
+                <hr class="navbar-divider">
+                <div class="navbar-item">
+                <% if user_signed_in? %>
+                  <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+                <% else %>
+                  <li><%= link_to 'Sign in', new_user_session_path %></li>
+                  <li><%= link_to 'Sign up', new_user_registration_path %></li>
+                <% end %>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        </div>
+      </nav>
+    </div>
+
+    <!-- Main content: will be in the middle -->
+      <div class="Main-body">
+        <div class="container has-text-rjust">
+          <h1 class="title">
+            <%= yield :page_title %>
+          </h1>
+        </div>
+      </div>
+    </section>
+    <%=yield %>
   </body>
 </html>

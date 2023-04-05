@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :posts, only: [:index, :new, :create, :show, :update, :edit, :destory]
-  resources :comments, only: [:create, :update ]
+  devise_for :users
+  resources :posts do
+    resources :comments
+  end
 
   # Defines the root path route ("/")
   root "posts#index"

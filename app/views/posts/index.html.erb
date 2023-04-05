@@ -1,2 +1,24 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<% content_for :page_title,  "Posts" %>
+
+<div class="section">
+  <div class="container">
+    <% @posts.each do |post| %>
+      <div class="card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <p class="title is-4"><%= link_to post.title, post  %></p>
+            </div>
+          </div>
+          <div class="content">
+            <%= post.content %>
+          </div>
+          <div class="comment-count">
+            <span class="tag is-rounded"><%= post.comments.count %> </span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<%= link_to "New post", new_post_path %>
