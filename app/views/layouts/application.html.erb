@@ -12,6 +12,9 @@
   </head>
 
   <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
     <section class="Main is-primary is-medium">
     <!-- Main head: will stick at the top -->
     <div class="Main-head">
@@ -25,42 +28,49 @@
             </span>
         </div>
 
-          <div class="control has-icons-left">
-            <input class="input is-rounded" type="text" placeholder="Search Blogchain">
-            <span class="icon is-small is-left" >
-            <i class="fa-solid fa-magnifying-glass"></i>
-            </span>
+          <div class="navbar-item">
+            <p class="control has-icons-left">
+              <input class="input is-rounded" type="text" placeholder="Search Articles">
+              <span class="icon is-left" >
+                <i class="fas fa-search" aria-hidden="true"></i>
+              </span>
+            </p>
           </div>
-
 
         <div id="navbarMenuMainA" class="navbar-menu">
           <div class="navbar-end">
+          <% if user_signed_in? %>
             <%= link_to "Write +", new_post_path, class:"navbar-item" %>
+            <div class="navbar-item">
+              <p> Notification </p>
+            </div>
+          <% end %>
             <div class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">
                 Menu
               </a>
 
               <div class="navbar-dropdown">
-                <a class="navbar-item">
-                  Profile
-                </a>
-                <a class="navbar-item">
-                  Stories
-                </a>
-                <a class="navbar-item">
-                  Liabrary
-                </a>
-                <a class="navbar-item">
-                  Stats
-                </a>
-                <hr class="navbar-divider">
-                <div class="navbar-item">
                 <% if user_signed_in? %>
-                  <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+                  <p class="navbar-item">
+                  <%= link_to  'Profile', edit_user_registration_path %>
+                  </p>
+                  <a class="navbar-item">
+                    Stories
+                  </a>
+                  <a class="navbar-item">
+                    Liabrary
+                  </a>
+                  <a class="navbar-item">
+                    Stats
+                  </a>
+                  <hr class="navbar-divider">
+                  <div class="navbar-item">
+
+                  <li><%= link_to "Logout #{current_user.email}", destroy_user_session_path, method: :delete %></li>
                 <% else %>
-                  <li><%= link_to 'Sign in', new_user_session_path %></li>
-                  <li><%= link_to 'Sign up', new_user_registration_path %></li>
+                  <li><%= link_to 'Sign In', new_user_session_path %></li>
+                  <li><%= link_to 'Sign Up', new_user_registration_path %></li>
                 <% end %>
                 </div>
               </div>
